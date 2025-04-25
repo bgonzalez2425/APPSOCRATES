@@ -14,8 +14,8 @@ targets:
   MyFileBrowser:
     type: application
     platform: iOS
-    sources: [MyFileBrowser/Sources]
-    resources: [MyFileBrowser/Resources]
+    sources: [Sources]
+    resources: [Resources]
     dependencies: []
     settings:
       base:

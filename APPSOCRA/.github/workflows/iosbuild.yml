@@ -1,0 +1,43 @@
+name: Build iOS App
+
+on:
+  workflow_dispatch:  # Permite ejecutarlo a mano desde GitHub
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app
+
+      - name: Install CocoaPods (si lo usás, si no, podés borrar este paso)
+        run: sudo gem install cocoapods
+
+      - name: Install dependencies
+        run: |
+          cd APPSOCRATES/MyFileBrowser
+          pod install || echo "No Pods"
+
+      - name: Build .ipa
+        run: |
+          cd APPSOCRATES
+          xcodebuild -project MyFileBrowser.xcodeproj \
+            -scheme MyFileBrowser \
+            -sdk iphoneos \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            archive -archivePath MyFileBrowser.xcarchive
+
+          xcodebuild -exportArchive \
+            -archivePath MyFileBrowser.xcarchive \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath output
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
+        with:
+          name: iOS-App
+          path: APPSOCRATES/output/*.ipa

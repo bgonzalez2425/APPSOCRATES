@@ -1,34 +1,38 @@
-name: MyFileBrowser
-options:
-  bundleIdPrefix: com.example
+name: Build iOS App
+on:
+  push:
+    branches:
+      - main  # O la rama que desees usar
+  pull_request:
+    branches:
+      - main  # O la rama que desees usar
 
-configs:
-  Debug:
-    buildSettings:
-      SWIFT_OPTIMIZATION_LEVEL: '-Onone'
-  Release:
-    buildSettings:
-      SWIFT_OPTIMIZATION_LEVEL: '-Owholemodule'
-
-targets:
-  MyFileBrowser:
-    type: application
-    platform: iOS
-    sources:
-      - AppDelegate.swift
-      - ViewController.swift
-      - FileBrowser.swift
-      - LoginViewController.swift
-      - TextViewController.swift
-    resources:
-      - Assets.xcassets
-      - Base.lproj
-      - Info.plist
-    dependencies: []
-    settings:
-      base:
-        deploymentTarget:
-          iOS: '14.0'
-    scheme:
-      name: MyFileBrowser
-      testTargets: []
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      # Paso 1: Checkout del código
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Paso 2: Configurar la versión de Xcode
+      - name: Set up Xcode
+        uses: apple/actions/setup-xcode@v2
+        with:
+          xcode-version: '15.0'  # Configura la versión de Xcode adecuada
+      
+      # Paso 3: Instalar dependencias con CocoaPods (si las tienes)
+      - name: Install dependencies
+        run: |
+          gem install cocoapods
+          pod install
+      
+      # Paso 4: Ejecutar la compilación para iOS 15.0
+      - name: Build the project
+        run: |
+          xcodebuild -project MyFileBrowser/MyFileBrowser.xcodeproj \
+            -scheme MyFileBrowser \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=15.0' \
+            clean build

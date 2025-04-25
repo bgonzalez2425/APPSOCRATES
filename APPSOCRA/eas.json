@@ -1,0 +1,11 @@
+{
+  "build": {
+    "ios": {
+      "workflow": "generic",
+      "scheme": "APPSOCRATES",
+      "projectArchive": {
+        "path": "."
+      }
+    }
+  }
+}

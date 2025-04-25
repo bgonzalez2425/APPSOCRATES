@@ -27,7 +27,7 @@ targets:
     settings:
       base:
         deploymentTarget:
-          iOS: '15.0'
+          iOS: '14.0'
     scheme:
       name: MyFileBrowser
       testTargets: []

@@ -1,33 +1,26 @@
-name: iOS Build
+name: MyFileBrowser
+options:
+  bundleIdPrefix: com.example
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+configs:
+  Debug:
+    buildSettings:
+      SWIFT_OPTIMIZATION_LEVEL: '-Onone'
+  Release:
+    buildSettings:
+      SWIFT_OPTIMIZATION_LEVEL: '-Owholemodule'
 
-jobs:
-  build:
-    name: Build iOS App
-    runs-on: macos-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Set up Xcode
-      run: sudo xcode-select -s /Applications/Xcode_15.2.app
-
-    - name: Install XcodeGen
-      run: brew install xcodegen
-
-    - name: Generate Xcode project
-      run: xcodegen generate --spec MyFileBrowser/project.yml
-
-    - name: Build the project
-      run: |
-        xcodebuild -project MyFileBrowser/MyFileBrowser.xcodeproj \
-                   -scheme MyFileBrowser \
-                   -sdk iphonesimulator \
-                   -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
-                   clean build
+targets:
+  MyFileBrowser:
+    type: application
+    platform: iOS
+    sources: [MyFileBrowser/Sources]
+    resources: [MyFileBrowser/Resources]
+    dependencies: []
+    settings:
+      base:
+        deploymentTarget:
+          iOS: '15.0'
+    scheme:
+      name: MyFileBrowser
+      testTargets: []

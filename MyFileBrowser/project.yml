@@ -14,13 +14,21 @@ targets:
   MyFileBrowser:
     type: application
     platform: iOS
-    sources: [Sources]
-    resources: [Resources]
+    sources:
+      - MyFileBrowser/AppDelegate.swift
+      - MyFileBrowser/ViewController.swift
+      - MyFileBrowser/FileBrowser.swift
+      - MyFileBrowser/LoginViewController.swift
+      - MyFileBrowser/TextViewController.swift
+      - MyFileBrowser/Info.plist
+    resources:
+      - MyFileBrowser/Assets.xcassets
+      - MyFileBrowser/Base.lproj
     dependencies: []
     settings:
       base:
         deploymentTarget:
-          iOS: '15.0'
+          iOS: '14.0'
     scheme:
       name: MyFileBrowser
       testTargets: []

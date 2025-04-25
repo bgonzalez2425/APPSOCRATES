@@ -20,10 +20,10 @@ targets:
       - FileBrowser.swift
       - LoginViewController.swift
       - TextViewController.swift
-      - Info.plist
     resources:
       - Assets.xcassets
       - Base.lproj
+      - Info.plist
     dependencies: []
     settings:
       base:

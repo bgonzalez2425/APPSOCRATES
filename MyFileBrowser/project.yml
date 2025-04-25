@@ -2,10 +2,12 @@ name: MyFileBrowser
 options:
   bundleIdPrefix: com.mycompany
   deploymentTarget:
-    iOS: '15.0'  # Actualiza aquí a iOS 15.0
+    iOS: '15.0'  # Cambia aquí a iOS 15.0
 targets:
   MyFileBrowser:
     type: application
     platform: iOS
-    sources: [MyFileBrowser/Sources]
-    resources: [MyFileBrowser/Resources]
+    sources: [MyFileBrowser/Sources]  # Ajusta según tu estructura
+    resources: [MyFileBrowser/Resources]  # Ajusta según tu estructura
+    dependencies:
+      # Si tienes dependencias, añádelas aquí
